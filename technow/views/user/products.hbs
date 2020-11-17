@@ -1,14 +1,15 @@
 <h1>my own products</h1>
 
 {{#each products}}
-<h2>{{owner.username}}</h2>
 <br>
-{{name}}
+Product name: {{name}}
 <br>
-{{description}}
+Product description: {{description}}
+<br>
+Price: ${{price}}
 <img src="{{imagePath}}" alt="">
 <br>
 {{!-- {{#if asdads}} --}}
-<a href="/edit-post/{{id}}">Edit post</a>
+<a href="/edit-product/{{id}}">Edit post</a>
 {{!-- {{/if}} --}}
 {{/each}}

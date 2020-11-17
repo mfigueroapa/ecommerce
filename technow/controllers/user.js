@@ -29,6 +29,7 @@ exports.createPostProcess = async (req, res) => {
 }
 
 exports.getPostsView = async (req, res) => {
+  console.log("posts")
   const user = req.session.passport.user
   const posts = await Post.find({
     creator: mongoose.Types.ObjectId(user)
@@ -68,6 +69,14 @@ exports.editPostProcess = async (req, res) => {
   res.redirect('/posts')
 }
 
+exports.deletePost = async (req, res) => {
+  const {
+    id
+  } = req.params
+  await Post.findByIdAndDelete(id)
+  res.redirect('/posts')
+}
+
 exports.createProductView = (req, res) => {
   console.log('get de createproduct')
   res.render('user/create-product')
@@ -91,8 +100,46 @@ exports.createProductProcess = async (req, res) => {
   res.redirect('/products')
 }
 
+exports.editProductView = async (req, res) => {
+  const {
+    id
+  } = req.params
+  const product = await Product.findById(id)
+  res.render('user/edit-product', product)
+}
+
+exports.editProductProecess = async (req, res) => {
+  const {
+    id
+  } = req.params
+  const {
+    name,
+    description,
+    price
+  } = req.body
+  let imagePath
+  if (req.file) {
+    imagePath = req.file.path
+  } else {
+    imagePath = req.body.existingImage
+  }
+  await Product.findByIdAndUpdate(id, {
+    name,
+    description,
+    price,
+    imagePath
+  })
+  res.redirect('/products')
+}
+exports.deleteProduct = async (req, res)=> {
+    const {
+      id
+    } = req.params
+    await Product.findByIdAndDelete(id)
+    res.redirect('/products')
+}
 exports.getProductsView = async (req, res) => {
-  const products = await Product.find() //falta
+  const products = await Product.find()
   res.render('user/products', {
     products
   })
