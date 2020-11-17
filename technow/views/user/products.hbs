@@ -1,0 +1,14 @@
+<h1>my own products</h1>
+
+{{#each products}}
+<h2>{{owner.username}}</h2>
+<br>
+{{name}}
+<br>
+{{description}}
+<img src="{{imagePath}}" alt="">
+<br>
+{{!-- {{#if asdads}} --}}
+<a href="/edit-post/{{id}}">Edit post</a>
+{{!-- {{/if}} --}}
+{{/each}}

@@ -12,10 +12,12 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
-    
+
+
+// const bindUserToViewLocals = require('./config/user-locals');
 
 mongoose
-  .connect('mongodb://localhost/technow', {useNewUrlParser: true})
+  .connect('mongodb://localhost/technow', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -33,6 +35,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+// app.use(bindUserToViewLocals)
+
 
 // Express View engine setup
 
@@ -79,7 +83,12 @@ const index = require('./routes/index');
 app.use('/', index);
 
 const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
+const passport = require('./passport');
+app.use('/', authRoutes);
+
+const user = require('./routes/user')
+app.use('/', user)
+
       
 
 module.exports = app;

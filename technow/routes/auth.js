@@ -1,63 +1,68 @@
 const express = require("express");
-const passport = require('passport');
+// const passport = require('passport');
 const router = express.Router();
-const User = require("../models/User");
+// const User = require("../models/User");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
-const bcryptSalt = 10;
+
+const {loginView, loginProcess, signupView, signupProcess, logoutProcess} = require('../controllers/auth')
+
+router.get("/login", loginView)
+// router.get("/login", (req, res, next) => {
+//   res.render("auth/login", {
+//     "message": req.flash("error")
+//   })
+// })
+
+router.post("/login", loginProcess)
+// router.post("/login", passport.authenticate("local", {
+//   successRedirect: "/",
+//   failureRedirect: "/login",
+//   failureFlash: true,
+//   passReqToCallback: true
+// }));
+
+router.get("/signup", signupView)
+// router.get("/signup",  (req, res, next) => {
+//   res.render("auth/signup");
+// });
 
 
-router.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
-});
+router.post('/signup', signupProcess)
+// router.post('/signup', async (req, res, next) => {
+//   const {
+//     email,
+//     password
+//   } = req.body
+//   console.log(email, password)
+//   if (!email || !password) {
+//     return res.render("auth/signup", {
+//       message: "Indicate email and password"
+//     })
+//   }
+//   const user = await User.findOne({
+//     email
+//   })
+//   if (user) {
+//     return res.render("auth/signup", {
+//       message: "Error ✖"
+//     })
+//   }
+//   const salt = bcrypt.genSaltSync(12)
+//   const hashPass = bcrypt.hashSync(password, salt)
+//   await User.create({
+//     email,
+//     password: hashPass
+//   })
 
-router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/auth/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
+//   res.redirect('/login')
+// })
 
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup");
-});
-
-router.post("/signup", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate username and password" });
-    return;
-  }
-
-  User.findOne({ username }, "username", (err, user) => {
-    if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists" });
-      return;
-    }
-
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
-
-    const newUser = new User({
-      username,
-      password: hashPass
-    });
-
-    newUser.save()
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch(err => {
-      res.render("auth/signup", { message: "Something went wrong" });
-    })
-  });
-});
-
-router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
-});
+router.get("/logout", logoutProcess)
+// router.get("/logout", (req, res) => {
+//   req.logout();
+//   res.redirect("/");
+// });
 
 module.exports = router;

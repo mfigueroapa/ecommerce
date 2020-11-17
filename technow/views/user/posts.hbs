@@ -1,0 +1,13 @@
+<h1>my own posts</h1>
+
+{{#each posts}}
+<h2>{{creator.username}}</h2>
+<br>
+{{content}}
+<br>
+<img src="{{imagePath}}" alt="">
+<br>
+{{!-- {{#if asdads}} --}}
+<a href="/edit-post/{{id}}">Edit post</a>
+{{!-- {{/if}} --}}
+{{/each}}

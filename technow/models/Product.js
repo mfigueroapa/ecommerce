@@ -6,11 +6,11 @@ const {
 const productSchema = new Schema({
   name: {
     type: String,
-    required: true
+    // required: true
   },
   description: {
     type: String,
-    required: true
+    // required: true
   },
   owner: {
     type: Schema.Types.ObjectId,
@@ -18,12 +18,13 @@ const productSchema = new Schema({
   },
   price: {
     type: Number,
-    required: true
+    // required: true
   },
   imagePath: {
-    required: true,
+    // required: true,
     type: String
-  },
+  }
+}, {
   timestamps: {
     createdAt: 'created_at',
     updatedAt: 'updated_at'
