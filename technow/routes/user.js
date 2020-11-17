@@ -22,7 +22,7 @@ router.post('/create-postt', isAuth, fileUploader.single('image'), createPostPro
 router.get('/edit-post/:id', isAuth, editPostView)
 router.post('/edit-post/:id', isAuth, fileUploader.single('image'), editPostProcess)
 router.get('/delete-post/:id', deletePost)//delette confirmation popup pending
-router.get('/posts', isAuthPostsView, getPostsView)
+router.get('/products', isAuth, getPostsView)
 
 
 router.get('/create-product', isAuth, createProductView)
@@ -30,7 +30,7 @@ router.post('/create-productt', isAuth, fileUploader.single('image'), createProd
 router.get('/edit-product/:id', isAuth,editProductView)
 router.post('/edit-product/:id', isAuth, fileUploader.single('image'), editProductProecess)
 router.get('/delete-product/:id', isAuth, deleteProduct) //delete confirmation popup pending
-router.get('/products', isAuthProductsView, getProductsView)
+router.get('/posts', isAuth, getProductsView)
 
 
 module.exports = router

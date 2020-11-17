@@ -68,3 +68,10 @@ exports.googleCallback = passport.authenticate("google", {
   successRedirect: '/profile',
   failureRedirect: '/login'
 })
+
+exports.facebookInit = passport.authenticate("facebook")
+
+exports.facebookCallback = passport.authenticate("facebook", {
+  successRedirect: '/profile',
+  failureRedirect: '/login'
+})

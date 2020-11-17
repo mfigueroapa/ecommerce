@@ -1,8 +1,16 @@
 const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy
+const FacebookStrategy = require('passport-facebook').Strategy;
 const User          = require('../models/User');
 const bcrypt        = require('bcrypt');
+
+
+
+
+
+
+  
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -51,3 +59,29 @@ passport.use(
     }
   )
 )
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "/auth/facebook/callback"
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      const user = await User.findOne({
+        facebookID: profile.id
+      })
+      if (user) {
+        return done(null, user)
+      }
+
+      const newUser = await User.create({
+        email: profile.user.email,
+        facebookID: profile.id
+      })
+
+      done(null, newUser)
+    } catch (err) {
+      done(err)
+    }
+  }
+));
+
