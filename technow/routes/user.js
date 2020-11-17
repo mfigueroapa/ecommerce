@@ -19,7 +19,7 @@ router.get('/create-post', isAuth, createPostView)
 router.post('/create-postt', isAuth, fileUploader.single('image'), createPostProcess)
 router.get('/edit-post/:id', isAuth, editPostView)
 router.post('/edit-post/:id', isAuth, fileUploader.single('image'), editPostProcess)
-router.get('/delete-post/:id', deletePost)
+router.get('/delete-post/:id', deletePost)//delette confirmation popup pending
 router.get('/posts', isAuth, getPostsView)
 
 

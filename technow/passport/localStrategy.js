@@ -1,5 +1,6 @@
 const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy
 const User          = require('../models/User');
 const bcrypt        = require('bcrypt');
 
@@ -25,3 +26,28 @@ passport.use(new LocalStrategy({
     .catch(err => done(err));
   }
 ));
+
+passport.use(
+  new GoogleStrategy({
+      clientID: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+      callbackURL: "/auth/google/callback"
+    },
+    async (_, __, profile, done) => {
+      const user = await User.findOne({
+        googleID: profile.id
+      })
+
+      if (user) {
+        return done(null, user)
+      }
+
+      const newUser = await User.create({
+        googleID: profile.id,
+        email: profile.emails[0].value
+      })
+
+      done(null, newUser)
+    }
+  )
+)
