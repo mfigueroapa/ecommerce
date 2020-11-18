@@ -7,9 +7,13 @@ const commentSchema = new Schema({
   content: String,
   owner: {
     type: Schema.Types.ObjectId,
-    ref: 'Post'
+    ref: 'User'
   },
-  imagePath: String,
+  post: {
+    type: Schema.Types.ObjectId,
+    ref: "Post"
+  }
+}, {
   timestamps: {
     createdAt: 'created_at',
     updatedAt: 'updated_at'

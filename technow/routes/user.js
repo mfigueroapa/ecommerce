@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const fileUploader = require('../config/cloudinary')
-const Post = require('../models/Post')
+const Comment = require('../models/Comment')
 const Product = require('../models/Product')
 const mongoose = require('mongoose')
 
@@ -22,7 +22,7 @@ router.post('/create-postt', isAuth, fileUploader.single('image'), createPostPro
 router.get('/edit-post/:id', isAuth, editPostView)
 router.post('/edit-post/:id', isAuth, fileUploader.single('image'), editPostProcess)
 router.get('/delete-post/:id', deletePost)//delette confirmation popup pending
-router.get('/products', isAuth, getPostsView)
+router.get('/posts', isAuth, getPostsView)
 
 
 router.get('/create-product', isAuth, createProductView)
@@ -30,7 +30,21 @@ router.post('/create-productt', isAuth, fileUploader.single('image'), createProd
 router.get('/edit-product/:id', isAuth,editProductView)
 router.post('/edit-product/:id', isAuth, fileUploader.single('image'), editProductProecess)
 router.get('/delete-product/:id', isAuth, deleteProduct) //delete confirmation popup pending
-router.get('/posts', isAuth, getProductsView)
+router.get('/products', isAuth, getProductsView)
+
+router.post('/create-comment',async (req, res) => {
+  const {content, postId} = req.body
+  console.log("content!: "+content)
+  await Comment.create({
+    content,
+    owner: req.session.passport.user,
+    post: postId
+  })
+})
+
+router.get('/cart', (req, res)=> {
+  res.render('user/cart')
+})
 
 
 module.exports = router

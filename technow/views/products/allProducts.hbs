@@ -1,1 +1,24 @@
 <h1>Productos para todos para todos</h1>
+
+{{#each products}}
+
+<br>
+Product name: {{name}}
+<br>
+Product description: {{description}}
+<br>
+<img src="{{imagePath}}" alt="">
+<br>
+Price: ${{price}}
+<br>
+{{!-- if --}}
+<form action="/add-to-cart" method="post" enctype="multipart/form-data">
+  <button type="submit" class="btn btn-primary">Add to cart!</button>
+</form>
+<a href="/add-to-cart"></a>
+{{!-- if --}}
+
+<a href="/product-details/{{id}}">Details</a>
+
+
+{{/each}}

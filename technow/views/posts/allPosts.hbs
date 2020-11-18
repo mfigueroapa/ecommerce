@@ -8,4 +8,29 @@
 <br>
 <img src="{{imagePath}}" alt="">
 <br>
+<a href="/post-details/{{id}}">Post details</a>
+<form action="/create-comment" method="post">
+  <div class="form-group">
+    <label for="content">Add a comment:</label>
+    <textarea name="content" id="content" cols="1" rows="3" class="form-control"> </textarea>
+    <input type="text" name="postId" hidden id="" value="{{id}}">
+    <button onclick="clearTextArea()" id="submit-comment-allPosts" class="btn btn-primary">Add comment</button>
+    
+  </div>
+</form>
 {{/each}}
+
+<script>
+      function clearTextArea(){
+        console.log("adsdadasdasd")
+        const content = document.querySelectorAll('#content')
+        content.forEach(ele => {
+          if (ele.value !== ''){
+            ele.parentElement().parentElement().submit().then({
+              ele.value = ''
+            })
+          }
+        })
+      }
+</script>
+
