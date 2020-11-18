@@ -4,10 +4,9 @@ const router = express.Router();
 const fileUploader = require('../config/cloudinary')
 const Comment = require('../models/Comment')
 const Product = require('../models/Product')
-const User = require('../models/User')
 const ItemCart = require('../models/ItemCart')
 const mongoose = require('mongoose')
-
+const mercadopago = require('../config/mercadopago')
 
 const {
   isAuth
@@ -65,37 +64,47 @@ router.post('/create-comment', async (req, res) => {
   })
 })
 
-router.get('/cart', (req, res) => {
-  res.render('user/cart')
+
+router.get('/cart', async (req, res) => {
+  const itemCart = await ItemCart.findOne({buyer: req.user._id}).populate('items')
+  const items = itemCart.items
+  console.log("items" + items)
+  res.render('user/cart', {items})
+  // try {
+  //   let preference = {
+  //     items: [{
+  //       title: 'Mi producto',
+  //       unit_price: 100,
+  //       quantity: 1
+  //     }],
+  //     notification_url: "https://webhook.site/88151d93-fd67-40d5-87f1-46b71cf8cae8"
+  //   }
+
+  //   const {
+  //     body
+  //   } = await mercadopago.preferences.create(preference)
+  //   // const id = body.id;
+  //   // console.log("id: " + id)
+  //   res.render('user/cart', {
+  //     items
+  //   })
+  // }catch(err) {
+  //   console.log("catch Err: "+ err)
+  // }
+
+  
 })
 
 router.post('/add-to-cart/:id', async (req, res) => {
-  console.log(req.user._id)
   const {
     id
   } = req.params
-  console.log(id)
   const userId = req.user._id
-  console.log(`userid: ${userId}`)
-  // let user = await User.findById(req.session.passport.user)
-  // await User.updateOne(
-  //   {_id: user},
-  //   {$addToSet: {itemCart: [id]}}
-  // )
-  // const itemCart = await User.find({_id: user}, 'itemCart').populate()
-  // console.log("==============")
-
-
-  //intentamos asignar a itemCart un itemcart que tenga en buyer id del usuario en sesion
   let itemCart = await ItemCart.findOne({
     buyer: userId
   })
-  console.log(typeof itemCart)
-  console.log(`itemCart: ${itemCart}`)
-  //asignamos a product el producto buscandolo con el id que recibimos en params
   let product = await Product.findById(id)
   console.log(`product: ${product}`)
-  //buscamos si ya existe un ironCart con el id del user que esta en sesion, si ya, updateamos 
   if (itemCart) {
     await ItemCart.findOneAndUpdate({
       buyer: userId
@@ -109,7 +118,6 @@ router.post('/add-to-cart/:id', async (req, res) => {
     })
     return res.redirect('/cart')
   } else {
-    //si no entre el return previo, entonces no existia y lo creamos
     const cart = await ItemCart.create({
       items: id,
       totalPrice: product.price,
@@ -117,8 +125,58 @@ router.post('/add-to-cart/:id', async (req, res) => {
     })
     res.redirect('/cart')
   }
-
 })
 
 
+
+// exports.itemDetails = async (req, res) => {
+router.get('/checkout', async (req, res) => {
+  const itemCart = await ItemCart.findById(req.user._id)
+  // Generamos la preferencia que describe el elemento que mercadopago va a procesar
+  const preference = {
+    items: [{
+      title: itemCart.items.name,
+      // unit_price: Number(item.price / 100),
+      unit_price: Number(itemCart.items.price),
+      currency_id: 'USD',
+      quantity: 1
+    }],
+    notification_url: 'https://webhook.site/88151d93-fd67-40d5-87f1-46b71cf8cae8'
+  }
+  // MP nos ayuda a generar el token que identifica a la transaccion de este producto para enviarlo al checkout pro
+  const response = await mercadopago.preferences.create(preference)
+  itemCart.formatedPrice = `$${(itemCart.price/100).toFixed(2)} USD`
+  itemCart.prefenceId = response.body.id
+  res.render('user/cart', itemCart)
+})
+
+
+
+
 module.exports = router
+
+
+// const userId = req.user._id
+// const itemCart = await ItemCart.findOne({buyer: userId}).populate('items')
+// const items = itemCart.items
+// console.log("itemCart "+itemCart)
+
+// //  const itemCart1 = await ItemCart.findById(req.user._id)
+//  const itemCart1 = await ItemCart.findById(itemCart._id)
+//  console.log("itemCart1 "+itemCart1)
+//  // Generamos la preferencia que describe el elemento que mercadopago va a procesar
+//  const preference = {
+//    items: [{
+//      title: itemCart1.items.name,
+//      // unit_price: Number(item.price / 100),
+//      unit_price: Number(10),
+//      currency_id: 'USD',
+//      quantity: 1
+//    }],
+//    notification_url: 'https://webhook.site/88151d93-fd67-40d5-87f1-46b71cf8cae8'
+//  }
+//  // MP nos ayuda a generar el token que identifica a la transaccion de este producto para enviarlo al checkout pro
+//  const response = await mercadopago.preferences.create(preference)
+//  itemCart1.formatedPrice = `$${(itemCart.price/100).toFixed(2)} USD`
+//  itemCart1.prefenceId = response.body.id
+//  res.render('user/cart', itemCart1)

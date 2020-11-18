@@ -1,3 +1,17 @@
 <h1>carrito</h1>
-
-{{itemCart}}
+<br>
+<br>
+{{#each items}}
+<h3>{{name}}</h3>
+<h3>${{price}}</h3>
+{{/each}}
+<br>
+<br>
+<h4>Item Cart</h4>
+<h1>{{id}}</h1>
+<form method="POST" action="/item/bought">
+  <script src="https://www.mercadopago.com.mx/integrations/v1/web-payment-checkout.js"
+    data-preference-id='{{id}}'>
+    
+    </script>
+</form>
