@@ -12,7 +12,7 @@ Product description: {{description}}
 Price: ${{price}}
 <br>
 {{!-- if --}}
-<form action="/add-to-cart" method="post" enctype="multipart/form-data">
+<form action="/add-to-cart/{{id}}" method="post" enctype="multipart/form-data">
   <button type="submit" class="btn btn-primary">Add to cart!</button>
 </form>
 <a href="/add-to-cart"></a>

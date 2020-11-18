@@ -4,6 +4,7 @@ const router = express.Router();
 const fileUploader = require('../config/cloudinary')
 const Comment = require('../models/Comment')
 const Product = require('../models/Product')
+const User = require('../models/User')
 const mongoose = require('mongoose')
 
 
@@ -44,6 +45,20 @@ router.post('/create-comment',async (req, res) => {
 
 router.get('/cart', (req, res)=> {
   res.render('user/cart')
+})
+
+router.post('/add-to-cart/:id',  async(req, res) => {
+  const {id} = req.params
+  const userId = req.session.passport.user
+  let user = await User.findById(req.session.passport.user)
+  await User.updateOne(
+    {_id: user},
+    {$addToSet: {itemCart: [id]}}
+  )
+  const itemCart = await User.find({_id: user}, 'itemCart').populate()
+  console.log("==============")
+  // console.log(itemCart)
+  res.render('user/cart',{itemCart})
 })
 
 
