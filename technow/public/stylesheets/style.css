@@ -2,7 +2,7 @@ body {
   padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
-h1 {
+h1, h2 {
   text-align: center; }
 
 a {
@@ -12,5 +12,35 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: space-around; }
+
+.jumbotron p {
+  text-align: center; }
+
+#section-one {
+  background-image: url("../images/bg.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: cover;
+  display: flex;
+  flex-direction: row; }
+
+#section-one h3 {
+  padding: 0;
+  border-bottom: 1px solid #CCC;
+  font-weight: 500;
+  margin: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+#section-one img {
+  margin: 50px; }
+
+.social-media-icons {
+  margin: 20px 20px; }
+
+.container-fluid {
+  text-align: center;
+  padding: 4% 8%; }
 
 /*# sourceMappingURL=style.css.map */

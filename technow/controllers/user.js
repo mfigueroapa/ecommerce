@@ -2,13 +2,17 @@ const fileUploader = require('../config/cloudinary')
 const Post = require('../models/Post')
 const Product = require('../models/Product')
 const mongoose = require('mongoose')
+const User = require('../models/User')
 
 
-exports.profileView = (req, res) => {
-  res.render('user/profile')
+exports.profileView = async (req, res) => {
+  const user = await User.findById(req.user._id)
+  console.log(user)
+  res.render('user/profile', {user})
 }
 
 exports.createPostView = (req, res) => {
+  
   res.render('user/create-post')
 }
 
@@ -78,7 +82,6 @@ exports.deletePost = async (req, res) => {
 }
 
 exports.createProductView = (req, res) => {
-  console.log('get de createproduct')
   res.render('user/create-product')
 }
 
