@@ -17,7 +17,7 @@ const flash      = require("connect-flash");
 // const bindUserToViewLocals = require('./config/user-locals');
 
 mongoose
-  .connect('mongodb://localhost/technow', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
+  .connect(process.env.DB || 'mongodb://localhost/technow', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -65,7 +65,8 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Tech2U';
+
 
 
 // Enable authentication using session + passport

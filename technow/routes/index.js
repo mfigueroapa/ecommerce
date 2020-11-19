@@ -5,11 +5,22 @@ const {
   productDetailsView,
   postDetailsView
 } = require('../controllers/index');
+const Product = require('../models/Product');
 const router  = express.Router();
 
 /* GET home page */
-router.get('/', (req, res, next) => {
-  res.render('index');
+router.get('/', async (req, res) => {
+  const products = await Product.find().populate('owner')
+  const carProducts=[products[0], products[1], products[2]]
+  try{
+    const user = req.user._id
+    if (user) {
+      console.log(user)
+      res.render('index', {user, products, carProducts})
+    }
+    return
+  }catch{}
+  res.render('index', {products, carProducts});
 });
 
 router.get('/allPosts', getAllPostsView)

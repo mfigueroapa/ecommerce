@@ -1,8 +1,20 @@
 body {
-  padding: 50px;
+  padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+h1 {
+  text-align: center;
+}
 a {
   color: #00B7FF;
+}
+
+// .card{
+//   margin-right:200px !important
+// }
+
+.two-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

@@ -1,24 +1,31 @@
-<h1>Productos para todos para todos</h1>
+<div class="container">
+  <br>
+  <h1>What are you looking for?</h1>
+  <br>
+  <div class="row">
+    {{#each products}}
+    <div class="col-sm-12 col-md-6 col-lg-4">
 
-{{#each products}}
+      <div class="card" style="width: 18rem;">
+        <img style="width: auto; height: 300px" class="card-img-top" src="{{imagePath}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Product name: {{name}}</h5>
+          <p class="card-text">About {{name}}: {{description}}</p>
+          <span>Price: ${{price}}</span>
+          <br>
+          <br>
+          <div class="two-btns">
+            <a href="/product-details/{{id}}" class="btn btn-primary">See more</a>
 
-<br>
-Product name: {{name}}
-<br>
-Product description: {{description}}
-<br>
-<img src="{{imagePath}}" alt="">
-<br>
-Price: ${{price}}
-<br>
-{{!-- if --}}
-<form action="/add-to-cart/{{id}}" method="post" >
-  <button type="submit" class="btn btn-primary">Add to cart!</button>
-</form>
-<a href="/add-to-cart"></a>
-{{!-- if --}}
-
-<a href="/product-details/{{id}}">Details</a>
+            <form action="/add-to-cart/{{id}}" method="post">
+              <button type="submit" class="btn btn-primary">Add to cart!</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-{{/each}}
+    {{/each}}
+  </div>
+</div>
