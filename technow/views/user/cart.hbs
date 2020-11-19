@@ -1,12 +1,26 @@
-<h1>carrito</h1>
+<br>
+<h1>Item Cart <span><i class="fas fa-shopping-cart"></i></span></h1>
 <br>
 <br>
-{{!-- {{itemCart._id}} --}}
-{{#each items}}
-<h3>{{name}} <a href="/cart/delete/{{_id}}">X {{_id}}</a></h3> 
-<h3>${{price}}</h3>
-{{/each}}
-<br>
-<br>
-<h4>Item Cart</h4>
-<a href="/cart/{{itemCart._id}}">Ir a pagar Carrito</a>
+<div class="container">
+  <div class="row">
+    {{#each items}}
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="card" style="width: 18rem;">
+        <img style="width: auto; height: 300px" class="card-img-top" src="{{imagePath}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{name}} </h5>
+          <span>Price: ${{price}}</span>
+          <br>
+          <a href="/cart/delete/{{_id}}" class="btn btn-primary">Remove from cart</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  <br>
+  <br>
+  <a class="btn btn-primary btn-lg btn-block" href="/cart/{{itemCart._id}}">Ir a pagar Carrito</a>
+  <br>
+
+</div>

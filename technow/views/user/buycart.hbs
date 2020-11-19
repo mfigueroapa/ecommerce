@@ -1,16 +1,22 @@
-<h1>Comprar Carrito</h1>
-<br>
-<br>
-{{#each itemCart.items}}
-<h3>{{name}}</h3>
-<h3>${{price}}</h3>
-{{/each}}
-<br>
-<br>
-<h4>Item Cart</h4>
-<h1>{{itemCart.preferenceId}}</h1>
-<form method="POST" action="/cart">
-  <script src="https://www.mercadopago.com.mx/integrations/v1/web-payment-checkout.js"
-    data-preference-id='{{itemCart.preferenceId}}'>
-    </script>
-</form>
+<div class="container">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1>Checkout <span><i class="far fa-credit-card"></i></span></h1>
+  <br>
+  <br>
+  <h1><span><i class="fas fa-dollar-sign"></i></span> {{itemCart.totalPrice}}</h1>
+  <br>
+  <br>
+  <div class="mercadoPagoBtn"> 
+
+    <form method="POST" action="/cart">
+      <script src="https://www.mercadopago.com.mx/integrations/v1/web-payment-checkout.js"
+        data-preference-id='{{itemCart.preferenceId}}'>
+        </script>
+    </form>
+  </div>
+</div>
