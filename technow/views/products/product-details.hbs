@@ -1,13 +1,16 @@
-<h2>detalles del product con id {{id}}</h2>
-
-
-
+<div class="container">
+  <br>
+  <h1>{{name}}</h1>
 <br>
-Product name: {{name}}
-<br>
-Product description: {{description}}
-<br>
-<img src="{{imagePath}}" alt="">
-<br>
-Price: ${{price}}
-<br>
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="card" style="width: 60vw;">
+      <img style="max-width: 300px; height: 300px; margin: 0 auto" class="card-img-top" src="{{imagePath}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 style='text-align:center;' class="card-title">{{name}} </h5>
+        <span><b>About:</b> {{description}} </span>
+        <span>Price: ${{price}}</span>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

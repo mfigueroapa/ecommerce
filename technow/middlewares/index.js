@@ -1,9 +1,8 @@
 exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
-    req.app.locals.logged = true
+      // console.log("bbbb" + app.locals.logged)
     next()
   } else {
-    req.app.locals.logged = false
     res.redirect("/")
   }
 }
@@ -21,4 +20,15 @@ exports.isNotAuth = (req, res, next) => {
   } else {
     res.redirect("/profile")
   }
+}
+
+exports.setAuth = app =>(req, res, next) =>{
+  console.log("midl")
+  console.log("user",req.user)
+   if (req.isAuthenticated()) {
+     app.locals.logged = true
+    } else {
+      app.locals.logged = false
+    }
+    next()
 }

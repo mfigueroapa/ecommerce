@@ -32,10 +32,8 @@
         <li class="nav-item active">
           <a class="nav-link" href="/allPosts">Posts <span class="sr-only">(current)</span></a>
         </li>
-        
-        {{!-- {{#unless user}} --}}
+   
         {{#unless logged}}
-
         <li class="nav-item active">
           <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
         </li>
@@ -66,19 +64,6 @@
       </ul>
     </div>
   </nav>
-  {{!-- {{user}} --}}
-  {{!-- <nav>
-    <a href="/">Home</a>
-    <a href="/login">Login</a>
-    <a href="/signup">Signup</a>
-    <a href="/logout">Logout</a>
-    <a href="/profile">profile</a>
-    <a href="/posts">my posts</a>
-    <a href="/products">my products</a>
-    <a href="/allProducts">all products</a>
-    <a href="/allPosts">all posts</a>
-    <a href="/cart">cart</a>
-  </nav> --}}
 
   {{{body}}}
 

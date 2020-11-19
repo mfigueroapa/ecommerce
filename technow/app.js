@@ -12,8 +12,8 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
-
-
+const passport = require('./passport')
+const {setAuth} = require('./middlewares')
 // const bindUserToViewLocals = require('./config/user-locals');
 
 mongoose
@@ -35,9 +35,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(bindUserToViewLocals)
+// Enable authentication using session + passport
+app.use(session({
+  secret: 'irongenerator',
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore( { mongooseConnection: mongoose.connection })
+}))
+
+app.use(flash());
+app.use(passport.initialize())
+app.use(passport.session()) 
 
 
+app.use(setAuth(app))
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
@@ -69,22 +80,14 @@ app.locals.title = 'Tech2U';
 
 
 
-// Enable authentication using session + passport
-app.use(session({
-  secret: 'irongenerator',
-  resave: true,
-  saveUninitialized: true,
-  store: new MongoStore( { mongooseConnection: mongoose.connection })
-}))
-app.use(flash());
-require('./passport')(app);
+// require('./passport')(app);
     
 
 const index = require('./routes/index');
 app.use('/', index);
 
 const authRoutes = require('./routes/auth');
-const passport = require('./passport');
+
 app.use('/', authRoutes);
 
 const user = require('./routes/user')

@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 const {loginView, loginProcess, signupView, signupProcess, logoutProcess, googleInit, googleCallback, facebookInit, facebookCallback} = require('../controllers/auth')
 const {isNotAuth} = require('../middlewares/index')
 
-router.get("/login", isNotAuth,loginView)
+router.get("/login",loginView)
 router.post("/login", loginProcess)
 router.get("/signup", signupView)
 router.post('/signup', signupProcess)

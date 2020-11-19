@@ -1,12 +1,19 @@
-<h2>detalles del post con id {{id}}</h2>
 
 
-
-<br>
-Post name: {{name}}
-<br>
-Posdt content: {{content}}
-<br>
-<img src="{{imagePath}}" alt="">
-<br>
-autor: {{creator.username}}
+<div class="container">
+  <br>
+  <h1>{{name}}</h1>
+  <br>
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="card" style="width: 60vw;">
+      <img style="max-width: 300px; height: 300px; margin: 0 auto" class="card-img-top" src="{{imagePath}}"
+        alt="Card image cap">
+      <div class="card-body">
+        <h5 style='text-align:center;' class="card-title">{{name}} </h5>
+        <span><b>About:</b>{{content}}</span>
+        <span>autor: {{creator.username}}</span>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
