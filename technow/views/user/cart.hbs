@@ -1,6 +1,7 @@
 <h1>carrito</h1>
 <br>
 <br>
+{{itemCart._id}}
 {{#each items}}
 <h3>{{name}}</h3>
 <h3>${{price}}</h3>
@@ -8,10 +9,4 @@
 <br>
 <br>
 <h4>Item Cart</h4>
-<h1>{{id}}</h1>
-<form method="POST" action="/item/bought">
-  <script src="https://www.mercadopago.com.mx/integrations/v1/web-payment-checkout.js"
-    data-preference-id='{{id}}'>
-    
-    </script>
-</form>
+<a href="/cart/{{itemCart._id}}">Ir a pagar Carrito</a>

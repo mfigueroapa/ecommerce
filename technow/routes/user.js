@@ -64,35 +64,33 @@ router.post('/create-comment', isAuth, async (req, res) => {
   })
 })
 
+//Para pagar todo el carrito de compras
+router.get('/cart/:itemCartId', async (req, res) => {
+  const itemCart = await ItemCart.findById(req.params.itemCartId).populate('items')
+  const items = itemCart.items
+  const preference = {
+    items: [
+      {
+        title: 'Producto',
+        unit_price: 100,
+        currency_id: 'USD',
+        quantity: 1
+      }
+    ],
+    notification_url: 'https://webhook.site/88151d93-fd67-40d5-87f1-46b71cf8cae8'
+  }
+  // MP nos ayuda a generar el token que identifica a la transaccion de este producto para enviarlo al checkout pro
+  const response = await mercadopago.preferences.create(preference)
+  //item.formatedPrice = `$${(item.price/100).toFixed(2)} USD`
+  itemCart.preferenceId = response.body.id
+  console.log(`prefffffff ${itemCart.preferenceId}`)
+  res.render('user/buycart', {itemCart,items})
+})
 
-router.get('/cart', isAuth, async (req, res) => {
+router.get('/cart/', async (req, res) => {
   const itemCart = await ItemCart.findOne({buyer: req.user._id}).populate('items')
   const items = itemCart.items
-  console.log("items" + items)
-  res.render('user/cart', {items})
-  // try {
-  //   let preference = {
-  //     items: [{
-  //       title: 'Mi producto',
-  //       unit_price: 100,
-  //       quantity: 1
-  //     }],
-  //     notification_url: "https://webhook.site/88151d93-fd67-40d5-87f1-46b71cf8cae8"
-  //   }
-
-  //   const {
-  //     body
-  //   } = await mercadopago.preferences.create(preference)
-  //   // const id = body.id;
-  //   // console.log("id: " + id)
-  //   res.render('user/cart', {
-  //     items
-  //   })
-  // }catch(err) {
-  //   console.log("catch Err: "+ err)
-  // }
-
-  
+  res.render('user/cart', {itemCart, items})
 })
 
 router.post('/add-to-cart/:id', isAuth, async (req, res) => {
