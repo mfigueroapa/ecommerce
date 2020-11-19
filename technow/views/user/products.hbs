@@ -1,16 +1,27 @@
+<br>
 <h1>my own products</h1>
-
-{{#each products}}
 <br>
-Product name: {{name}}
-<br>
-Product description: {{description}}
-<br>
-<img src="{{imagePath}}" alt="">
-<br>
-Price: ${{price}}
-<br>
-
-<a href="/edit-product/{{id}}">Edit post</a>
-
-{{/each}}
+<div class="container">
+  <div class="row">
+    {{#each products}}
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="card" style="width: 500px;">
+        <img style="width: auto; height: 300px" class="card-img-top" src="{{imagePath}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Product name: {{name}}</h5>
+          <p class="card-text">About {{name}}: {{description}}</p>
+          <span>Price: ${{price}}</span>
+          <br>
+          <br>
+          <div class="two-btns">
+            <a href="/product-details/{{id}}" class="btn btn-primary">See more</a>
+            <a href="/edit-product/{{id}}" class="btn btn-primary">Edit post</a>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+    </div>
+    {{/each}}
+  </div>
+</div>

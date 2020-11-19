@@ -9,10 +9,6 @@ a {
   color: #00B7FF;
 }
 
-// .card{
-//   margin-right:200px !important
-// }
-
 .two-btns {
   display: flex;
   flex-direction: row;
@@ -24,16 +20,14 @@ a {
 }
 
 #section-one {
-  background-image: url('../images/bg.png');
+  background-image: url('../images/bg3.png');
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: cover;
   display: flex;
   flex-direction: row;
 }
-#section-one h3 {
-  padding: 0;
-  // background-color: beige;
+#section-one h1 {
   border-bottom: 1px solid #CCC;
   font-weight: 500;
   margin: 120px;

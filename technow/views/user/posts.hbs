@@ -1,16 +1,22 @@
+<br>
+<h1>Posts made by you</h1>
+<br>
 <div class="container">
-  <h1>my own posts</h1>
-  
-  {{#each posts}}
-  
-  <h2>{{creator.username}}</h2>
-  <br>
-  {{content}}
-  <br>
-  <img src="{{imagePath}}" alt="">
-  <br>
-  {{!-- {{#if asdads}} --}}
-  <a href="/edit-post/{{id}}">Edit post</a>
-  {{!-- {{/if}} --}}
-  {{/each}}
+  <div class="row">
+    {{#each posts}}
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="card" style="width: 600px; margin: 50px;">
+        <img style="width: auto; height: 300px" class="card-img-top" src="{{imagePath}}" alt="Card image cap">
+        <div class="card-body">
+          <h4 class="card-title">{{name}}</h4>
+          <p class="card-text">{{content}}</p>
+          <a class="btn btn-primary" href="/edit-post/{{id}}">Edit post</a>
+          <br>
+          <br>
+          <a class="btn btn-primary" href="/post-details/{{id}}">Post details</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </div>

@@ -17,15 +17,14 @@ a {
   text-align: center; }
 
 #section-one {
-  background-image: url("../images/bg.png");
+  background-image: url("../images/bg3.png");
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: cover;
   display: flex;
   flex-direction: row; }
 
-#section-one h3 {
-  padding: 0;
+#section-one h1 {
   border-bottom: 1px solid #CCC;
   font-weight: 500;
   margin: 120px;
