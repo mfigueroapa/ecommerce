@@ -52,9 +52,9 @@ exports.signupProcess = async (req, res) => {
   res.redirect('/login')
 }
 
-exports.logoutProcess = (req, res)=>{
+exports.logoutProcess = async (req, res)=>{
   req.logout();
-  res.redirect("/");
+  res.redirect('back');
 }
 
 exports.googleInit = passport.authenticate("google", {

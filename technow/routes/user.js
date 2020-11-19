@@ -40,7 +40,7 @@ router.get('/create-post', isAuth, createPostView)
 router.post('/create-postt', isAuth, fileUploader.single('image'), createPostProcess)
 router.get('/edit-post/:id', isAuth, editPostView)
 router.post('/edit-post/:id', isAuth, fileUploader.single('image'), editPostProcess)
-router.get('/delete-post/:id', deletePost) //delette confirmation popup pending
+router.get('/delete-post/:id', isAuth, deletePost) //delette confirmation popup pending
 router.get('/posts', isAuth, getPostsView)
 
 
@@ -51,7 +51,7 @@ router.post('/edit-product/:id', isAuth, fileUploader.single('image'), editProdu
 router.get('/delete-product/:id', isAuth, deleteProduct) //delete confirmation popup pending
 router.get('/products', isAuth, getProductsView)
 
-router.post('/create-comment', async (req, res) => {
+router.post('/create-comment', isAuth, async (req, res) => {
   const {
     content,
     postId
@@ -65,7 +65,7 @@ router.post('/create-comment', async (req, res) => {
 })
 
 
-router.get('/cart', async (req, res) => {
+router.get('/cart', isAuth, async (req, res) => {
   const itemCart = await ItemCart.findOne({buyer: req.user._id}).populate('items')
   const items = itemCart.items
   console.log("items" + items)
@@ -95,7 +95,7 @@ router.get('/cart', async (req, res) => {
   
 })
 
-router.post('/add-to-cart/:id', async (req, res) => {
+router.post('/add-to-cart/:id', isAuth, async (req, res) => {
   const {
     id
   } = req.params
@@ -130,7 +130,7 @@ router.post('/add-to-cart/:id', async (req, res) => {
 
 
 // exports.itemDetails = async (req, res) => {
-router.get('/checkout', async (req, res) => {
+router.get('/checkout', isAuth, async (req, res) => {
   const itemCart = await ItemCart.findById(req.user._id)
   // Generamos la preferencia que describe el elemento que mercadopago va a procesar
   const preference = {

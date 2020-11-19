@@ -5,6 +5,9 @@ const {
   productDetailsView,
   postDetailsView
 } = require('../controllers/index');
+const {
+  isAuth, isAuthAllViews
+} = require("../middlewares/index");
 const Product = require('../models/Product');
 const router  = express.Router();
 
@@ -23,10 +26,10 @@ router.get('/', async (req, res) => {
   res.render('index', {products, carProducts});
 });
 
-router.get('/allPosts', getAllPostsView)
-router.get('/post-details/:id', postDetailsView)
+router.get('/allPosts', isAuthAllViews, getAllPostsView)
+router.get('/post-details/:id', isAuthAllViews, postDetailsView)
 
-router.get('/allProducts', getAllProductsView)
-router.get('/product-details/:id', productDetailsView)
+router.get('/allProducts', isAuthAllViews,getAllProductsView)
+router.get('/product-details/:id', isAuthAllViews,productDetailsView)
 
 module.exports = router;

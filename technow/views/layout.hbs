@@ -32,13 +32,17 @@
         <li class="nav-item active">
           <a class="nav-link" href="/allPosts">Posts <span class="sr-only">(current)</span></a>
         </li>
+        {{!-- {{#unless user}} --}}
+        {{#unless logged}}
+
         <li class="nav-item active">
           <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/signup">Sign up <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/signup">Signup <span class="sr-only">(current)</span></a>
         </li>
-        {{#if user}}
+      {{/unless}}
+        {{#if logged}}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -58,7 +62,7 @@
     </div>
   </nav>
   {{!-- {{user}} --}}
-  <nav>
+  {{!-- <nav>
     <a href="/">Home</a>
     <a href="/login">Login</a>
     <a href="/signup">Signup</a>
@@ -69,7 +73,7 @@
     <a href="/allProducts">all products</a>
     <a href="/allPosts">all posts</a>
     <a href="/cart">cart</a>
-  </nav>
+  </nav> --}}
 
   {{{body}}}
 
