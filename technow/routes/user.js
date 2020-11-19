@@ -64,33 +64,52 @@ router.post('/create-comment', isAuth, async (req, res) => {
   })
 })
 
-//Para pagar todo el carrito de compras
 router.get('/cart/:itemCartId', async (req, res) => {
   const itemCart = await ItemCart.findById(req.params.itemCartId).populate('items')
-  const items = itemCart.items
+  const itemsArr = itemCart.items
+  let itemsArrPreference = []
+  itemsArr.forEach(item => {
+    itemsArrPreference.push({
+      title: item.name,
+      unit_price: item.price,
+      currency_id: 'USD',
+      quantity: 1
+    })
+  })
   const preference = {
-    items: [
-      {
-        title: 'Producto',
-        unit_price: 100,
-        currency_id: 'USD',
-        quantity: 1
-      }
-    ],
+    items: itemsArrPreference,
     notification_url: 'https://webhook.site/88151d93-fd67-40d5-87f1-46b71cf8cae8'
   }
-  // MP nos ayuda a generar el token que identifica a la transaccion de este producto para enviarlo al checkout pro
   const response = await mercadopago.preferences.create(preference)
-  //item.formatedPrice = `$${(item.price/100).toFixed(2)} USD`
   itemCart.preferenceId = response.body.id
-  console.log(`prefffffff ${itemCart.preferenceId}`)
-  res.render('user/buycart', {itemCart,items})
+  res.render('user/buycart', {itemCart,itemsArrPreference})
 })
 
-router.get('/cart/', async (req, res) => {
+router.get('/cart', async (req, res) => {
   const itemCart = await ItemCart.findOne({buyer: req.user._id}).populate('items')
   const items = itemCart.items
   res.render('user/cart', {itemCart, items})
+})
+
+router.get('/cart/delete/:id', async (req, res) => {
+  const {id} = req.params
+  console.log("product ID:"+id)
+  let itemCart = await ItemCart.findOne({
+    buyer: req.user._id
+  })
+  let product = await Product.findById(id)
+  console.log("product: "+product)
+  await ItemCart.findOneAndUpdate({
+    buyer: req.user._id
+  }, {
+    $pull: {
+      items: id
+    },
+    totalPrice: itemCart.totalPrice -= product.price,
+  }, {
+    new: true
+  })
+  res.redirect('/cart')
 })
 
 router.post('/add-to-cart/:id', isAuth, async (req, res) => {
