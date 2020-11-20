@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const fileUploader = require('../config/cloudinary')
-const Comment = require('../models/Comment')
 const Product = require('../models/Product')
 const ItemCart = require('../models/ItemCart')
 const mongoose = require('mongoose')
+const Comment = require('../models/Comment')
 const mercadopago = require('../config/mercadopago')
 
 const {
@@ -31,7 +31,10 @@ const {
   deletePost,
   editProductView,
   editProductProecess,
-  deleteProduct
+  deleteProduct,
+  createCommentProcess,
+  createItemCartPreferenceProcess,
+  itemCartView
 } = require('../controllers/user')
 
 router.get('/profile', isAuth, profileView)
@@ -42,7 +45,6 @@ router.get('/edit-post/:id', isAuth, editPostView)
 router.post('/edit-post/:id', isAuth, fileUploader.single('image'), editPostProcess)
 router.get('/delete-post/:id', isAuth, deletePost) 
 router.get('/posts', isAuth, getPostsView)
-
 
 router.get('/create-product', isAuth, createProductView)
 router.post('/create-productt', isAuth, fileUploader.single('image'), createProductProcess)
@@ -164,9 +166,6 @@ router.get('/checkout', isAuth, async (req, res) => {
   itemCart.prefenceId = response.body.id
   res.render('user/cart', itemCart)
 })
-
-
-
 
 module.exports = router
 

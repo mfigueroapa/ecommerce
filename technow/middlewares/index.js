@@ -1,6 +1,5 @@
 exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
-      // console.log("bbbb" + app.locals.logged)
     next()
   } else {
     res.redirect("/")
