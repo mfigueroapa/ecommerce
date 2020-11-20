@@ -94,6 +94,14 @@ router.get('/cart', isAuth, async (req, res) => {
   res.render('user/cart', {itemCart, items})
 })
 
+router.get('/purchase', (req, res) => {
+  res.render('user/after-purchase')
+})
+
+router.post('/purchase', (req, res) => {
+  res.redirect('/purchase')
+})
+
 router.get('/cart/delete/:id', isAuth, async (req, res) => {
   const {id} = req.params
   console.log("product ID:"+id)
