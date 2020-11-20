@@ -7,8 +7,8 @@ Tech4All, Tech2U
 
 Visita nuestra app:
 
-email: ironhacker_99@hotmail.com
-pwd:
+email: Ironhacker_99@hotmail.com
+pwd: 123
 
 Autores:
 
