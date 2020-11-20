@@ -144,57 +144,10 @@ exports.deleteProduct = async (req, res) => {
   res.redirect('/products')
 }
 exports.getProductsView = async (req, res) => {
-  const products = await Product.find()
+  const user = req.session.passport.user
+  const products = await Product.find({owner: mongoose.Types.ObjectId(user)})
   res.render('user/products', {
     products
   })
 }
 
-// exports.createCommentProcess = async (req, res) => {
-//   const {
-//     content,
-//     postId
-//   } = req.body
-//   console.log("content!: " + content)
-//   await Comment.create({
-//     content,
-//     owner: req.session.passport.user,
-//     post: postId
-//   })
-// }
-
-// exports.createItemCartPreferenceProcess = async (req, res) => {
-//   const itemCart = await ItemCart.findById(req.params.itemCartId).populate('items')
-//   const itemsArr = itemCart.items
-//   let itemsArrPreference = []
-//   itemsArr.forEach(item => {
-//     itemsArrPreference.push({
-//       title: item.name,
-//       unit_price: item.price,
-//       currency_id: 'USD',
-//       quantity: 1
-//     })
-//   })
-//   const preference = {
-//     items: itemsArrPreference,
-//     notification_url: 'https://webhook.site/88151d93-fd67-40d5-87f1-46b71cf8cae8'
-//   }
-//   const response = await mercadopago.preferences.create(preference)
-//   itemCart.preferenceId = response.body.id
-//   console.log(itemCart.preferenceId)
-//   res.render('user/buycart', {
-//     itemCart,
-//     itemsArrPreference
-//   })
-// }
-
-// exports.itemCartView = async (req, res) => {
-//   const itemCart = await ItemCart.findOne({
-//     buyer: req.user._id
-//   }).populate('items')
-//   const items = itemCart.items
-//   res.render('user/cart', {
-//     itemCart,
-//     items
-//   })
-// }
