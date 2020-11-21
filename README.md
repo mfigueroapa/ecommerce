@@ -1,8 +1,7 @@
 # Tech2U
 
-Bienvenido a Tech2U
+Tech2U es una plataforma que te permite vender cualquier producto relacionado con la tecnología, si cuentas con algo que ya no utilices, puedes publicarlo en Tech2U para que alguien en busca de este pueda encontrarlo y comprártelo. Asimismo, ¡podrás estar en contacto con miles de personas que compartan los mismos intereses que tú!.
 
-Tech2U es una plataforma para que tú puedas vender tus productos relacionados a tecnología. Asimismo, podrás estar en contacto con miles de personas que compartan tus intereses respecto a la tecnología.
 Tech4All, Tech2U
 
 # Visita nuestra app:
@@ -10,7 +9,7 @@ Tech4All, Tech2U
 email: Ironhacker_99@hotmail.com
 pwd: 123
 
-# Autores:
+# Desarrolladores:
 
 Mauricio Figueroa
 Leonardo Campuzano
