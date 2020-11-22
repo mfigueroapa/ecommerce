@@ -1,6 +1,6 @@
 # Tech2U
 
-Tech2U es una plataforma que te permite vender cualquier producto relacionado con la tecnología, puedes publicar cualquier producto que ya no utilices para que alguien que lo esté buscando pueda encontrarlo y comprártelo. Asimismo, podrás estar en contacto con miles de personas que compartan los mismos intereses que tú.
+Tech2U es una plataforma e-commerce de tecnología en la que puedes vender y comprar productos a otros usuarios. Podrás estar en contacto con otras personas que compartan los mismos intereses que tú. Regístrate y publica artículos que quieras vender para que otros usuarios puedan comprarte.
 
 Tech4All, Tech2U
 
