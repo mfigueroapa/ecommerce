@@ -22,8 +22,7 @@ exports.isNotAuth = (req, res, next) => {
 }
 
 exports.setAuth = app =>(req, res, next) =>{
-  console.log("midl")
-  console.log("user",req.user)
+  // console.log("current user in sess: ",req.user.username)
    if (req.isAuthenticated()) {
      app.locals.logged = true
     } else {

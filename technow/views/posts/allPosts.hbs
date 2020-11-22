@@ -1,13 +1,10 @@
 <br>
 <h1>Looking for reviews?</h1>
 <br>
-
 <div class="container">
   <div class="row">
     {{#each posts}}
     <div class="col-sm-12 col-md-6 col-lg-6">
-
-      {{!-- <div class="card" style="width: 18rem;"> --}}
       <div class="card" style="width: 400px; margin: 50px;">
         <img style="width: auto; height: 300px" class="card-img-top" src="{{imagePath}}" alt="Card image cap">
         <div class="card-body">
@@ -20,18 +17,17 @@
           <form action="/create-comment" method="post">
             <div class="form-group">
               <label for="content">Add a comment:</label>
-              <textarea name="content" id="content" cols="1" rows="3" class="form-control"> </textarea>
+              <textarea name="content" id="content" cols="1" rows="3" class="form-control"></textarea>
               <input type="text" name="postId" hidden id="" value="{{id}}">
-              <button onclick="clearTextArea()" id="submit-comment-allPosts" class="btn btn-primary">Add
-                comment</button>
-
+              <br>
+              <button disabled onclick="clearTextArea()" id="submit-comment-allPosts" class="btn btn-primary">
+                Add comment
+                </button>
             </div>
           </form>
         </div>
       </div>
     </div>
-
-
     {{/each}}
   </div>
 </div>
